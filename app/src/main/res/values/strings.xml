@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RecyclerViewTask</string>
+    <string name="tv_name">Robert de Niro</string>
+    <string name="tv_company">Tinkoff</string>
+    <string name="cd_avatar">avatar</string>
+    <string name="cd_image_more">image more</string>
 </resources>
