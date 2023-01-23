@@ -10,7 +10,7 @@ import com.example.recyclerviewtask.module.User
 
 class UserAdapter : Adapter<UserAdapter.UserViewHolder>() {
 
-    private var users: List<User> = emptyList()
+    var users: List<User> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()

@@ -45,12 +45,12 @@ class UserService {
         notifyChanges()
     }
 
-    private fun addListener(listener: UsersListener) {
+    fun addListener(listener: UsersListener) {
         listeners.add(listener)
         listener.invoke(users)
     }
 
-    private fun removeListener(listener: UsersListener) {
+    fun removeListener(listener: UsersListener) {
         listeners.remove(listener)
     }
 
