@@ -3,22 +3,17 @@ package com.example.recyclerviewtask
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.recyclerviewtask.databinding.ItemUserBinding
 import com.example.recyclerviewtask.module.User
 
-class UserAdapter : Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter : Adapter<UserViewHolder>() {
 
     var users: List<User> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
-
-    class UserViewHolder(
-        val binding: ItemUserBinding
-    ) : ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
