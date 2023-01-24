@@ -24,10 +24,6 @@ class UserService {
         }.toMutableList()
     }
 
-    private fun getUser(): List<User> {
-        return users
-    }
-
     fun deleteUser(user: User) {
         val indexToDelete = users.indexOfFirst { it.id == user.id }
         if (indexToDelete != -1) {
