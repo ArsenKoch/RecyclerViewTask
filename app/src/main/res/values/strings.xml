@@ -4,4 +4,8 @@
     <string name="tv_company">Tinkoff</string>
     <string name="cd_avatar">avatar</string>
     <string name="cd_image_more">image more</string>
+
+    <string name="move_up">Move Up</string>
+    <string name="move_down">Move Down</string>
+    <string name="remove">Remove</string>
 </resources>
