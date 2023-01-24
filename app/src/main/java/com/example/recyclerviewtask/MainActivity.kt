@@ -24,11 +24,11 @@ class MainActivity : AppCompatActivity() {
 
         adapter = UserAdapter(object : UserActionListener {
             override fun onUserMove(user: User, moveBy: Int) {
-                TODO("Not yet implemented")
+                userService.moveUser(user, moveBy)
             }
 
             override fun onUserDelete(user: User) {
-                TODO("Not yet implemented")
+                userService.deleteUser(user)
             }
 
             override fun onUserDetails(user: User) {

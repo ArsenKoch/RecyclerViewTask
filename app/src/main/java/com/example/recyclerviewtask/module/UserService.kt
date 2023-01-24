@@ -28,7 +28,7 @@ class UserService {
         return users
     }
 
-    private fun deleteUser(user: User) {
+    fun deleteUser(user: User) {
         val indexToDelete = users.indexOfFirst { it.id == user.id }
         if (indexToDelete != -1) {
             users.removeAt(indexToDelete)
@@ -36,7 +36,7 @@ class UserService {
         }
     }
 
-    private fun moveUser(user: User, moveBy: Int) {
+    fun moveUser(user: User, moveBy: Int) {
         val oldIndex = users.indexOfFirst { it.id == user.id }
         if (oldIndex == -1) return
         val newIndex = oldIndex + moveBy
