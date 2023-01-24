@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.bumptech.glide.Glide
 import com.example.recyclerviewtask.databinding.ItemUserBinding
@@ -16,8 +17,10 @@ class UserAdapter(
 
     var users: List<User> = emptyList()
         set(value) {
+            val diffCallback = UserDiffCallback(field, value)
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
             field = value
-            notifyDataSetChanged()
+            diffResult.dispatchUpdatesTo(this)
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
