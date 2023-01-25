@@ -11,4 +11,11 @@
 
     <string name="fire">Fire</string>
     <string name="unemployed">Unemployed</string>
+    <string name="person_photo">person photo</string>
+    <string name="details">Details</string>
+    <string name="name_fragment">Arsen Kocharyan</string>
+    <string name="delete_btn">DELETE</string>
+    <string name="failed_to_load_users">Failed to load users</string>
+    <string name="try_again">try again</string>
+    <string name="no_users">No users</string>
 </resources>
