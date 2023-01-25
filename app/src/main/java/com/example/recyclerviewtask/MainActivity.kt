@@ -3,6 +3,7 @@ package com.example.recyclerviewtask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerviewtask.databinding.ActivityMainBinding
 import com.example.recyclerviewtask.module.User
@@ -45,7 +46,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerview.layoutManager = layoutManager
         binding.recyclerview.adapter = adapter
-
+        val itemAnimator = binding.recyclerview.itemAnimator
+        if (itemAnimator is DefaultItemAnimator) {
+            itemAnimator.supportsChangeAnimations = false
+        }
         userService.addListener(userListener)
     }
 
