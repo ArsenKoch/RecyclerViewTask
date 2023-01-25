@@ -35,11 +35,13 @@ class UserAdapter(
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = users[position]
+        val context = holder.itemView.context
         with(holder.binding) {
             holder.itemView.tag = user
             ivMore.tag = user
 
-            tvCompany.text = user.company
+            tvCompany.text =
+                user.company.ifBlank { context.getString(R.string.unemployed) }
             tvName.text = user.name
             if (user.photo.isNotBlank()) {
                 Glide.with(ivPhoto.context)
@@ -82,6 +84,9 @@ class UserAdapter(
                 isEnabled = position < users.size - 1
             }
         popupMenu.menu.add(0, ID_REMOVE, Menu.NONE, context.getString(R.string.remove))
+        if (user.company.isNotBlank()) {
+            popupMenu.menu.add(0, ID_FIRE, Menu.NONE, context.getString(R.string.fire))
+        }
 
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -94,6 +99,9 @@ class UserAdapter(
                 ID_REMOVE -> {
                     actionListener.onUserDelete(user)
                 }
+                ID_FIRE -> {
+                    actionListener.onUserFire(user)
+                }
             }
             return@setOnMenuItemClickListener true
         }
@@ -104,5 +112,6 @@ class UserAdapter(
         private const val ID_MOVE_UP = 1
         private const val ID_MOVE_DOWN = 2
         private const val ID_REMOVE = 3
+        private const val ID_FIRE = 4
     }
 }

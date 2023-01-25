@@ -9,4 +9,6 @@ interface UserActionListener {
     fun onUserDelete(user: User)
 
     fun onUserDetails(user: User)
+
+    fun onUserFire(user: User)
 }

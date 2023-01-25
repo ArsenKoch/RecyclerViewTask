@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "User: ${user.name}", Toast.LENGTH_SHORT)
                     .show()
             }
+
+            override fun onUserFire(user: User) {
+                userService.fireUser(user)
+            }
         })
 
         val layoutManager = LinearLayoutManager(this)
