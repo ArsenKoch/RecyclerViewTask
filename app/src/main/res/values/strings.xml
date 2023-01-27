@@ -18,4 +18,6 @@
     <string name="failed_to_load_users">Failed to load users</string>
     <string name="try_again">try again</string>
     <string name="no_users">No users</string>
+
+    <string name="user_delete">User delete</string>
 </resources>

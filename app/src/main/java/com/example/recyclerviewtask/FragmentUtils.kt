@@ -13,6 +13,9 @@ class ViewModelFactory(
             UserListViewModel::class.java -> {
                 UserListViewModel(app.userService)
             }
+            UserDetailsViewModel::class.java -> {
+                UserDetailsViewModel(app.userService)
+            }
             else -> {
                 throw IllegalStateException("Unknown view model class")
             }
@@ -22,3 +25,4 @@ class ViewModelFactory(
 }
 
 fun Fragment.factory() = ViewModelFactory(requireContext().applicationContext as App)
+fun Fragment.navigator() = requireContext() as Navigator

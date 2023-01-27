@@ -3,9 +3,10 @@ package com.example.recyclerviewtask
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.recyclerviewtask.databinding.ActivityMainBinding
+import com.example.recyclerviewtask.module.User
 import com.example.recyclerviewtask.screens.UserListFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Navigator {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -19,5 +20,17 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragmentContainer, UserListFragment())
                 .commit()
         }
+    }
+
+    override fun showDetails(user: User) {
+
+    }
+
+    override fun goBack() {
+        TODO("Not yet implemented")
+    }
+
+    override fun toast(messageInt: Int) {
+        TODO("Not yet implemented")
     }
 }
