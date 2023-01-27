@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerviewtask.UserActionListener
 import com.example.recyclerviewtask.UserAdapter
@@ -48,9 +49,10 @@ class UserListFragment : Fragment() {
             }
         })
 
-        viewModel.users.observe(viewLifecycleOwner) {
+        viewModel.users.observe(viewLifecycleOwner, Observer {
             adapter.users = it
-        }
+        })
+
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.layoutManager = layoutManager
