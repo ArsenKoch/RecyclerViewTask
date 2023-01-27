@@ -1,5 +1,6 @@
 package com.example.recyclerviewtask.module
 
+import com.example.recyclerviewtask.UserDetails
 import com.github.javafaker.Faker
 import java.util.*
 import kotlin.collections.ArrayList
@@ -23,6 +24,16 @@ class UserService {
                 company = faker.company().name()
             )
         }.toMutableList()
+    }
+
+    fun getUserById(id: Long): UserDetails {
+        val user = users.firstOrNull { it.id == id }
+        return user?.let {
+            UserDetails(
+                user = it,
+                details = Faker.instance().lorem().paragraphs(3).joinToString("\n\n")
+            )
+        }!!
     }
 
     fun deleteUser(user: User) {
