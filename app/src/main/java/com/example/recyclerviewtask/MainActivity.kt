@@ -1,9 +1,11 @@
 package com.example.recyclerviewtask
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.recyclerviewtask.databinding.ActivityMainBinding
 import com.example.recyclerviewtask.module.User
+import com.example.recyclerviewtask.screens.UserDetailsFragment
 import com.example.recyclerviewtask.screens.UserListFragment
 
 class MainActivity : AppCompatActivity(), Navigator {
@@ -23,14 +25,16 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun showDetails(user: User) {
-
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, UserDetailsFragment.newInstance(user.id))
+            .commit()
     }
 
     override fun goBack() {
-        TODO("Not yet implemented")
+        onBackPressed()
     }
 
     override fun toast(messageInt: Int) {
-        TODO("Not yet implemented")
+        Toast.makeText(this, R.string.user_delete, Toast.LENGTH_SHORT).show()
     }
 }

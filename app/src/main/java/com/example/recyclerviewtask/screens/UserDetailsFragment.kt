@@ -13,6 +13,7 @@ import com.example.recyclerviewtask.R
 import com.example.recyclerviewtask.UserDetailsViewModel
 import com.example.recyclerviewtask.databinding.FragmentUserDetailsBinding
 import com.example.recyclerviewtask.factory
+import com.example.recyclerviewtask.navigator
 
 class UserDetailsFragment : Fragment() {
 
@@ -32,7 +33,7 @@ class UserDetailsFragment : Fragment() {
         binding = FragmentUserDetailsBinding.inflate(inflater, container, false)
 
         viewModel.userDetails.observe(viewLifecycleOwner, Observer {
-            binding.tvUserDetailsFragment.text = it.user.name
+            binding.tvNameFragment.text = it.user.name
             if (it.user.photo.isNotBlank()) {
                 Glide.with(this)
                     .load(it.user.photo)
@@ -48,13 +49,15 @@ class UserDetailsFragment : Fragment() {
 
         binding.btnDelete.setOnClickListener {
             viewModel.deleteUser()
-            //todo
+            navigator().toast(R.string.user_delete)
+            navigator().goBack()
         }
 
         return binding.root
     }
 
     companion object {
+
         private const val ARG_USER_ID = "ARG_USER_ID"
 
         fun newInstance(userId: Long): UserDetailsFragment {
