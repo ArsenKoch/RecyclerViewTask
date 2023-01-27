@@ -11,6 +11,7 @@ import com.example.recyclerviewtask.UserActionListener
 import com.example.recyclerviewtask.UserAdapter
 import com.example.recyclerviewtask.UserListViewModel
 import com.example.recyclerviewtask.databinding.FragmentUserListBinding
+import com.example.recyclerviewtask.factory
 import com.example.recyclerviewtask.module.User
 
 class UserListFragment : Fragment() {
@@ -52,7 +53,6 @@ class UserListFragment : Fragment() {
         }
 
         val layoutManager = LinearLayoutManager(requireContext())
-
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
 
