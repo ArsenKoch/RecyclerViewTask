@@ -43,14 +43,15 @@ class UserService {
         )
     })
 
-    fun deleteUser(user: User) {
+    fun deleteUser(user: User): Task<Unit> = SimpleTask<Unit>(Callable {
+        Thread.sleep(2000)
         val indexToDelete = users.indexOfFirst { it.id == user.id }
         if (indexToDelete != -1) {
             users = ArrayList(users)
             users.removeAt(indexToDelete)
             notifyChanges()
         }
-    }
+    })
 
     fun moveUser(user: User, moveBy: Int) {
         val oldIndex = users.indexOfFirst { it.id == user.id }
