@@ -42,11 +42,15 @@ class SimpleTask<T>(
     }
 
     override fun cancel() {
-        TODO("Not yet implemented")
+        clearCallbacks()
+        future.cancel(true)
     }
 
     override fun await(): T {
-        TODO("Not yet implemented")
+        future.get()
+        val result = this.result
+        if (result is SuccessfulResult) return result.data
+        else throw (result as ErrorResult).error
     }
 
     private fun notifyListeners() {
