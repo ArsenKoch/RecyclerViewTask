@@ -53,15 +53,16 @@ class UserService {
         }
     })
 
-    fun moveUser(user: User, moveBy: Int) {
+    fun moveUser(user: User, moveBy: Int): Task<Unit> = SimpleTask<Unit>(Callable {
+        Thread.sleep(2000)
         val oldIndex = users.indexOfFirst { it.id == user.id }
-        if (oldIndex == -1) return
+        if (oldIndex == -1) return@Callable
         val newIndex = oldIndex + moveBy
-        if (newIndex < 0 || newIndex >= users.size) return
+        if (newIndex < 0 || newIndex >= users.size) return@Callable
         users = ArrayList(users)
         Collections.swap(users, oldIndex, newIndex)
         notifyChanges()
-    }
+    })
 
     fun fireUser(user: User) {
         val index = users.indexOfFirst { it.id == user.id }
