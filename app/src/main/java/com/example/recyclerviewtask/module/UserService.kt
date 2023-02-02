@@ -2,8 +2,11 @@ package com.example.recyclerviewtask.module
 
 import com.example.recyclerviewtask.UserDetails
 import com.example.recyclerviewtask.UserNotFoundException
+import com.example.recyclerviewtask.tasks.SimpleTask
+import com.example.recyclerviewtask.tasks.Task
 import com.github.javafaker.Faker
 import java.util.*
+import java.util.concurrent.Callable
 import kotlin.collections.ArrayList
 
 typealias UsersListener = (users: List<User>) -> Unit
@@ -13,8 +16,10 @@ class UserService {
     private var users = mutableListOf<User>()
 
     private val listeners = mutableSetOf<UsersListener>()
+    private var loaded = false
 
-    init {
+    fun loadUser(): Task<Unit> = SimpleTask<Unit>(Callable {
+        Thread.sleep(2000)
         val faker = Faker.instance()
         IMAGES.shuffle()
         users = (1..100).map {
@@ -25,7 +30,9 @@ class UserService {
                 company = faker.company().name()
             )
         }.toMutableList()
-    }
+        loaded = true
+        notifyChanges()
+    })
 
     fun getUserById(id: Long): UserDetails {
         val user = users.firstOrNull { it.id == id } ?: throw UserNotFoundException()
