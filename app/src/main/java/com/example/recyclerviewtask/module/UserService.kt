@@ -38,8 +38,7 @@ class UserService {
         Thread.sleep(2000)
         val user = users.firstOrNull { it.id == id } ?: throw UserNotFoundException()
         return@Callable UserDetails(
-            user = user,
-            details = Faker.instance().lorem().paragraphs(3).joinToString("\n\n")
+            user = user, details = Faker.instance().lorem().paragraphs(3).joinToString("\n\n")
         )
     })
 
@@ -64,14 +63,15 @@ class UserService {
         notifyChanges()
     })
 
-    fun fireUser(user: User) {
+    fun fireUser(user: User): Task<Unit> = SimpleTask<Unit>(Callable {
+        Thread.sleep(2000)
         val index = users.indexOfFirst { it.id == user.id }
-        if (index == -1) return
+        if (index == -1) return@Callable
         val updatedUser = users[index].copy(company = "")
         users = ArrayList(users)
         users[index] = updatedUser
         notifyChanges()
-    }
+    })
 
     fun addListener(listener: UsersListener) {
         listeners.add(listener)
@@ -83,6 +83,7 @@ class UserService {
     }
 
     private fun notifyChanges() {
+        if(!loaded) return
         listeners.forEach { it.invoke(users) }
     }
 
