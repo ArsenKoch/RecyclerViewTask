@@ -34,13 +34,14 @@ class UserService {
         notifyChanges()
     })
 
-    fun getUserById(id: Long): UserDetails {
+    fun getUserById(id: Long): Task<UserDetails> = SimpleTask<UserDetails>(Callable {
+        Thread.sleep(2000)
         val user = users.firstOrNull { it.id == id } ?: throw UserNotFoundException()
-        return UserDetails(
+        return@Callable UserDetails(
             user = user,
             details = Faker.instance().lorem().paragraphs(3).joinToString("\n\n")
         )
-    }
+    })
 
     fun deleteUser(user: User) {
         val indexToDelete = users.indexOfFirst { it.id == user.id }
