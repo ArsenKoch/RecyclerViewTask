@@ -37,6 +37,7 @@ class UserListViewModel(
 
     init {
         addListener()
+        loadUser()
     }
 
     private fun addListener() {
@@ -53,15 +54,39 @@ class UserListViewModel(
     }
 
     fun deleteUser(user: User) {
+        if (isInProgress(user)) return
+        addProgressTo(user)
         userService.deleteUser(user)
+            .onError {
+                removeProgressFrom(user)
+            }
+            .onSuccess {
+                removeProgressFrom(user)
+            }
     }
 
     fun moveUser(user: User, moveUser: Int) {
+        if (isInProgress(user)) return
+        addProgressTo(user)
         userService.moveUser(user, moveUser)
+            .onSuccess {
+                removeProgressFrom(user)
+            }
+            .onError {
+                removeProgressFrom(user)
+            }
     }
 
     fun fireUser(user: User) {
+        if (isInProgress(user))
+            addProgressTo(user)
         userService.fireUser(user)
+            .onError {
+                removeProgressFrom(user)
+            }
+            .onSuccess {
+                removeProgressFrom(user)
+            }
     }
 
     override fun onCleared() {
