@@ -69,6 +69,16 @@ class UserListViewModel(
         userService.removeListener(listener)
     }
 
+    private fun addProgressTo(user: User) {
+        userIdsInProgress.add(user.id)
+        notifyUpdates()
+    }
+
+    private fun removeProgressFrom(user: User) {
+        userIdsInProgress.remove(user.id)
+        notifyUpdates()
+    }
+
     private fun isInProgress(user: User): Boolean {
         return userIdsInProgress.contains(user.id)
     }
