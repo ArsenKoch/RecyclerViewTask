@@ -109,9 +109,8 @@ class UserListViewModel(
     }
 
     private fun notifyUpdates() {
-        _users.value = userResult.map { users ->
+        _users.postValue(userResult.map { users ->
             users.map { user -> UserListItem(user, isInProgress(user)) }
-        }
-
+        })
     }
 }
