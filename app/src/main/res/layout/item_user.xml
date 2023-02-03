@@ -10,21 +10,30 @@
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
+        android:contentDescription="@string/cd_avatar"
         android:src="@drawable/ic_person"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/cd_avatar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivMore"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:contentDescription="@string/cd_image_more"
         android:padding="6dp"
         android:src="@drawable/ic_more"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/cd_image_more" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pbItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvName"
