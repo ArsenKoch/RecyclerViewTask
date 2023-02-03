@@ -13,7 +13,7 @@ class SimpleTask<T>(
 ) : Task<T> {
 
     private val future: Future<*>
-    private var result: Result<T> = PendingResult()
+    private var result: UserResult<T> = PendingResult()
 
     init {
         future = executorService.submit {
