@@ -8,9 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.recyclerviewtask.*
+import com.example.recyclerviewtask.UserAdapter
+import com.example.recyclerviewtask.UserListViewModel
 import com.example.recyclerviewtask.databinding.FragmentUserListBinding
-import com.example.recyclerviewtask.module.User
+import com.example.recyclerviewtask.factory
+import com.example.recyclerviewtask.tasks.EmptyResult
+import com.example.recyclerviewtask.tasks.ErrorResult
+import com.example.recyclerviewtask.tasks.PendingResult
+import com.example.recyclerviewtask.tasks.SuccessfulResult
 
 class UserListFragment : Fragment() {
 
@@ -32,9 +37,21 @@ class UserListFragment : Fragment() {
         adapter = UserAdapter(viewModel)
 
         viewModel.users.observe(viewLifecycleOwner, Observer {
-            adapter.users = it
+            when (it) {
+                is SuccessfulResult -> {
+                    binding.recyclerView.visibility = View.VISIBLE
+                }
+                is ErrorResult -> {
+                    binding.tryAgainContainer.visibility = View.VISIBLE
+                }
+                is PendingResult -> {
+                    binding.progressBarUserList.visibility = View.VISIBLE
+                }
+                is EmptyResult -> {
+                    binding.tvNoUsers.visibility = View.VISIBLE
+                }
+            }
         })
-
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.layoutManager = layoutManager

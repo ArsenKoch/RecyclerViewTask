@@ -92,7 +92,7 @@ class UserListViewModel(
             }
             .onError {
                 removeProgressFrom(user)
-                _actionShowToast.value = Event("Cant move user".toInt())
+                _actionShowToast.value = Event(R.string.cant_move_user)
             }
             .autoCancel()
     }
@@ -103,7 +103,7 @@ class UserListViewModel(
         userService.deleteUser(user)
             .onError {
                 removeProgressFrom(user)
-                _actionShowToast.value = Event("Cant delete user".toInt())
+                _actionShowToast.value = Event(R.string.cant_delete_user)
             }
             .onSuccess {
                 removeProgressFrom(user)
