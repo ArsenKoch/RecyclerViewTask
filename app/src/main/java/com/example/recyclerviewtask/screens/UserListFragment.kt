@@ -37,6 +37,7 @@ class UserListFragment : Fragment() {
         adapter = UserAdapter(viewModel)
 
         viewModel.users.observe(viewLifecycleOwner, Observer {
+            hideAll()
             when (it) {
                 is SuccessfulResult -> {
                     binding.recyclerView.visibility = View.VISIBLE
@@ -59,5 +60,12 @@ class UserListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         return binding.root
+    }
+
+    private fun hideAll() {
+        binding.tvNoUsers.visibility = View.GONE
+        binding.recyclerView.visibility = View.GONE
+        binding.progressBarUserList.visibility = View.GONE
+        binding.tryAgainContainer.visibility = View.GONE
     }
 }
