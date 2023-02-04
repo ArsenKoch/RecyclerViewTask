@@ -15,7 +15,7 @@ class UserAdapter(
     private val actionListener: UserActionListener
 ) : Adapter<UserViewHolder>(), View.OnClickListener {
 
-    var users: List<User> = emptyList()
+    var users: List<UserListItem> = emptyList()
         set(value) {
             val diffCallback = UserDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -27,18 +27,27 @@ class UserAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemUserBinding.inflate(inflater, parent, false)
 
-        binding.ivMore.setOnClickListener(this)
-        binding.root.setOnClickListener(this)
-
         return UserViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val user = users[position]
+        val userListItem = users[position]
+        val user = userListItem.user
         val context = holder.itemView.context
+
         with(holder.binding) {
             holder.itemView.tag = user
             ivMore.tag = user
+
+            if (userListItem.isInProgress) {
+                ivMore.visibility = View.INVISIBLE
+                pbItem.visibility = View.VISIBLE
+                holder.binding.root.setOnClickListener(null)
+            } else {
+                ivMore.visibility = View.VISIBLE
+                pbItem.visibility = View.GONE
+                holder.binding.root.setOnClickListener(this@UserAdapter)
+            }
 
             tvCompany.text =
                 user.company.ifBlank { context.getString(R.string.unemployed) }
@@ -74,7 +83,7 @@ class UserAdapter(
         val popupMenu = PopupMenu(view.context, view)
         val context = view.context
         val user = view.tag as User
-        val position = users.indexOfFirst { it.id == user.id }
+        val position = users.indexOfFirst { it.user.id == user.id }
 
         popupMenu.menu.add(0, ID_MOVE_UP, Menu.NONE, context.getString(R.string.move_up)).apply {
             isEnabled = position > 0

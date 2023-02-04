@@ -40,6 +40,7 @@ class UserListFragment : Fragment() {
             when (it) {
                 is SuccessfulResult -> {
                     binding.recyclerView.visibility = View.VISIBLE
+                    adapter.users = it.data
                 }
                 is ErrorResult -> {
                     binding.tryAgainContainer.visibility = View.VISIBLE

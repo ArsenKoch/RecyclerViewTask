@@ -1,11 +1,10 @@
 package com.example.recyclerviewtask
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.recyclerviewtask.module.User
 
 class UserDiffCallback(
-    private val oldList: List<User>,
-    private val newList: List<User>
+    private val oldList: List<UserListItem>,
+    private val newList: List<UserListItem>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 
@@ -14,7 +13,7 @@ class UserDiffCallback(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
-        return oldItem.id == newItem.id
+        return oldItem.user.id == newItem.user.id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
