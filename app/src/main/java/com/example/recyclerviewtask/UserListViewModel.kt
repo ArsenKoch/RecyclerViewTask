@@ -2,7 +2,6 @@ package com.example.recyclerviewtask
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.recyclerviewtask.module.User
 import com.example.recyclerviewtask.module.UserService
 import com.example.recyclerviewtask.module.UsersListener
@@ -50,7 +49,7 @@ class UserListViewModel(
             .onError {
                 userResult = ErrorResult(it)
             }
-
+            .autoCancel()
     }
 
     fun deleteUser(user: User) {
@@ -63,6 +62,7 @@ class UserListViewModel(
             .onSuccess {
                 removeProgressFrom(user)
             }
+            .autoCancel()
     }
 
     fun moveUser(user: User, moveUser: Int) {
@@ -75,6 +75,7 @@ class UserListViewModel(
             .onError {
                 removeProgressFrom(user)
             }
+            .autoCancel()
     }
 
     fun fireUser(user: User) {
@@ -87,6 +88,7 @@ class UserListViewModel(
             .onSuccess {
                 removeProgressFrom(user)
             }
+            .autoCancel()
     }
 
     override fun onCleared() {
