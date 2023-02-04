@@ -29,23 +29,7 @@ class UserListFragment : Fragment() {
             container,
             false
         )
-        adapter = UserAdapter(object : UserActionListener {
-            override fun onUserMove(user: User, moveBy: Int) {
-                viewModel.moveUser(user, moveBy)
-            }
-
-            override fun onUserDelete(user: User) {
-                viewModel.deleteUser(user)
-            }
-
-            override fun onUserDetails(user: User) {
-                navigator().showDetails(user)
-            }
-
-            override fun onUserFire(user: User) {
-                viewModel.fireUser(user)
-            }
-        })
+        adapter = UserAdapter(viewModel)
 
         viewModel.users.observe(viewLifecycleOwner, Observer {
             adapter.users = it
