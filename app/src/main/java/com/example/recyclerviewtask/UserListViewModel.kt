@@ -19,6 +19,9 @@ class UserListViewModel(
     private val _users = MutableLiveData<UserResult<List<UserListItem>>>()
     val users: LiveData<UserResult<List<UserListItem>>> = _users
 
+    private val _actionShowDetails = MutableLiveData<Event<User>>()
+    val actionShowDetails: LiveData<Event<User>> = _actionShowDetails
+
     private val userIdsInProgress = mutableSetOf<Long>()
     private var userResult: UserResult<List<User>> = EmptyResult()
         set(value) {
@@ -89,6 +92,10 @@ class UserListViewModel(
                 removeProgressFrom(user)
             }
             .autoCancel()
+    }
+
+    fun showDetails(user: User) {
+        _actionShowDetails.value = Event(user)
     }
 
     override fun onCleared() {
