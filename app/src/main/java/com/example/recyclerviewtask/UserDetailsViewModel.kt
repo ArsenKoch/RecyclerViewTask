@@ -32,5 +32,10 @@ class UserDetailsViewModel(
     data class State(
         val userDetailsResult: UserResult<UserDetails>,
         private val deletingInProgress: Boolean
-    )
+    ) {
+
+        val showContent: Boolean get() = userDetailsResult is SuccessfulResult
+        val showInProgress: Boolean get() = userDetailsResult is PendingResult || deletingInProgress
+        val enableDeleteButton: Boolean get() = !deletingInProgress
+    }
 }
