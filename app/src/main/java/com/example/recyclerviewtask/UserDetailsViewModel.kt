@@ -21,7 +21,6 @@ class UserDetailsViewModel(
     private val _actionGoBack = MutableLiveData<Event<Unit>>()
     val actionGoBack: LiveData<Event<Unit>> = _actionGoBack
 
-
     private val currentState: State get() = state.value!!
 
     init {

@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.recyclerviewtask.R
 import com.example.recyclerviewtask.UserDetailsViewModel
 import com.example.recyclerviewtask.databinding.FragmentUserDetailsBinding
 import com.example.recyclerviewtask.factory
 import com.example.recyclerviewtask.navigator
+import com.example.recyclerviewtask.tasks.SuccessfulResult
 
 class UserDetailsFragment : Fragment() {
 
@@ -32,25 +32,42 @@ class UserDetailsFragment : Fragment() {
     ): View {
         binding = FragmentUserDetailsBinding.inflate(inflater, container, false)
 
-        viewModel.state.observe(viewLifecycleOwner, Observer {
-            binding.tvNameFragment.text = it.user.name
-            if (it.user.photo.isNotBlank()) {
-                Glide.with(this)
-                    .load(it.user.photo)
-                    .circleCrop()
-                    .into(binding.ivPhotoFragment)
+        viewModel.actionShowToast.observe(viewLifecycleOwner) {
+            it.getValue()?.let { messageInt -> navigator().toast(messageInt) }
+        }
+
+        viewModel.actionGoBack.observe(viewLifecycleOwner) {
+            it.getValue()?.let { navigator().goBack() }
+        }
+
+        viewModel.state.observe(viewLifecycleOwner) {
+            binding.contentContainer.visibility = if (it.showContent) {
+                val userDetails = (it.userDetailsResult as SuccessfulResult).data
+                binding.tvNameFragment.text = userDetails.user.name
+                if (userDetails.user.photo.isNotBlank()) {
+                    Glide.with(this)
+                        .load(userDetails.user.photo)
+                        .circleCrop()
+                        .into(binding.ivPhotoFragment)
+                } else {
+                    Glide.with(this)
+                        .load(R.drawable.ic_person)
+                        .into(binding.ivPhotoFragment)
+                }
+
+                binding.tvUserDetailsFragment.text = userDetails.details
+
+                View.VISIBLE
             } else {
-                Glide.with(this)
-                    .load(R.drawable.ic_person)
-                    .into(binding.ivPhotoFragment)
+                View.GONE
             }
-            binding.tvUserDetailsFragment.text = it.details
-        })
+
+            binding.progressBar.visibility = if (it.showInProgress) View.VISIBLE else View.GONE
+            binding.btnDelete.isEnabled = it.enableDeleteButton
+        }
 
         binding.btnDelete.setOnClickListener {
             viewModel.deleteUser()
-            navigator().toast(R.string.user_delete)
-            navigator().goBack()
         }
 
         return binding.root

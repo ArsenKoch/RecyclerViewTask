@@ -12,6 +12,7 @@ import com.example.recyclerviewtask.UserAdapter
 import com.example.recyclerviewtask.UserListViewModel
 import com.example.recyclerviewtask.databinding.FragmentUserListBinding
 import com.example.recyclerviewtask.factory
+import com.example.recyclerviewtask.navigator
 import com.example.recyclerviewtask.tasks.EmptyResult
 import com.example.recyclerviewtask.tasks.ErrorResult
 import com.example.recyclerviewtask.tasks.PendingResult
@@ -53,6 +54,13 @@ class UserListFragment : Fragment() {
                     binding.tvNoUsers.visibility = View.VISIBLE
                 }
             }
+        })
+
+        viewModel.actionShowDetails.observe(viewLifecycleOwner, Observer {
+            it.getValue()?.let { user -> navigator().showDetails(user) }
+        })
+        viewModel.actionShowToast.observe(viewLifecycleOwner, Observer {
+            it.getValue()?.let { messageInt -> navigator().toast(messageInt) }
         })
 
         val layoutManager = LinearLayoutManager(requireContext())
