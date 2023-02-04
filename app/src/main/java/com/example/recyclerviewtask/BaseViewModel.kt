@@ -3,6 +3,10 @@ package com.example.recyclerviewtask
 import androidx.lifecycle.ViewModel
 import com.example.recyclerviewtask.tasks.Task
 
+class Event<T>(
+    private val value: T
+)
+
 open class BaseViewModel : ViewModel() {
 
     private val task = mutableListOf<Task<*>>()
