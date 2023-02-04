@@ -8,6 +8,7 @@ import com.example.recyclerviewtask.module.User
 import com.example.recyclerviewtask.screens.UserDetailsFragment
 import com.example.recyclerviewtask.screens.UserListFragment
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), Navigator {
 
     private lateinit var binding: ActivityMainBinding

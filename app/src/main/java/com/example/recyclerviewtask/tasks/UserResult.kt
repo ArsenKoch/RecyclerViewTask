@@ -1,5 +1,6 @@
 package com.example.recyclerviewtask.tasks
 
+@Suppress("UNCHECKED_CAST")
 sealed class UserResult<T> {
 
     fun <R> map(mapper: (T) -> R): UserResult<R> {

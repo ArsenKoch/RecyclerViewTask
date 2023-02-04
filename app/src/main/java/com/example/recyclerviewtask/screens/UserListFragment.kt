@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerviewtask.UserAdapter
 import com.example.recyclerviewtask.UserListViewModel
@@ -37,7 +36,7 @@ class UserListFragment : Fragment() {
         )
         adapter = UserAdapter(viewModel)
 
-        viewModel.users.observe(viewLifecycleOwner, Observer {
+        viewModel.users.observe(viewLifecycleOwner) {
             hideAll()
             when (it) {
                 is SuccessfulResult -> {
@@ -54,14 +53,14 @@ class UserListFragment : Fragment() {
                     binding.tvNoUsers.visibility = View.VISIBLE
                 }
             }
-        })
+        }
 
-        viewModel.actionShowDetails.observe(viewLifecycleOwner, Observer {
+        viewModel.actionShowDetails.observe(viewLifecycleOwner) {
             it.getValue()?.let { user -> navigator().showDetails(user) }
-        })
-        viewModel.actionShowToast.observe(viewLifecycleOwner, Observer {
+        }
+        viewModel.actionShowToast.observe(viewLifecycleOwner) {
             it.getValue()?.let { messageInt -> navigator().toast(messageInt) }
-        })
+        }
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.layoutManager = layoutManager

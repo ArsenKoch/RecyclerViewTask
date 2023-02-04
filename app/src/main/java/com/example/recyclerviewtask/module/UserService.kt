@@ -18,7 +18,7 @@ class UserService {
     private val listeners = mutableSetOf<UsersListener>()
     private var loaded = false
 
-    fun loadUser(): Task<Unit> = SimpleTask<Unit>(Callable {
+    fun loadUser(): Task<Unit> = SimpleTask {
         Thread.sleep(2000)
         val faker = Faker.instance()
         IMAGES.shuffle()
@@ -32,9 +32,9 @@ class UserService {
         }.toMutableList()
         loaded = true
         notifyChanges()
-    })
+    }
 
-    fun getUserById(id: Long): Task<UserDetails> = SimpleTask<UserDetails>(Callable {
+    fun getUserById(id: Long): Task<UserDetails> = SimpleTask(Callable {
         Thread.sleep(2000)
         val user = users.firstOrNull { it.id == id } ?: throw UserNotFoundException()
         return@Callable UserDetails(
@@ -42,7 +42,7 @@ class UserService {
         )
     })
 
-    fun deleteUser(user: User): Task<Unit> = SimpleTask<Unit>(Callable {
+    fun deleteUser(user: User): Task<Unit> = SimpleTask {
         Thread.sleep(2000)
         val indexToDelete = users.indexOfFirst { it.id == user.id }
         if (indexToDelete != -1) {
@@ -50,9 +50,9 @@ class UserService {
             users.removeAt(indexToDelete)
             notifyChanges()
         }
-    })
+    }
 
-    fun moveUser(user: User, moveBy: Int): Task<Unit> = SimpleTask<Unit>(Callable {
+    fun moveUser(user: User, moveBy: Int): Task<Unit> = SimpleTask(Callable {
         Thread.sleep(2000)
         val oldIndex = users.indexOfFirst { it.id == user.id }
         if (oldIndex == -1) return@Callable
@@ -63,7 +63,7 @@ class UserService {
         notifyChanges()
     })
 
-    fun fireUser(user: User): Task<Unit> = SimpleTask<Unit>(Callable {
+    fun fireUser(user: User): Task<Unit> = SimpleTask(Callable {
         Thread.sleep(2000)
         val index = users.indexOfFirst { it.id == user.id }
         if (index == -1) return@Callable
