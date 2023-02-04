@@ -39,8 +39,16 @@ class UserDetailsViewModel(
     }
 
     fun deleteUser() {
-        val user = this.state.value ?: return
-        userService.deleteUser(user.user)
+        val userDetailsResult = currentState.userDetailsResult
+        if (userDetailsResult !is SuccessfulResult) return
+        _state.value = currentState.copy(deletingInProgress = true)
+        userService.deleteUser(userDetailsResult.data.user)
+            .onSuccess {
+                //todo
+            }
+            .onError {
+                _state.value = currentState.copy(deletingInProgress = false)
+            }
     }
 
     data class State(
