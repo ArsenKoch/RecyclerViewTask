@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recyclerviewtask.module.UserService
+import com.example.recyclerviewtask.tasks.PendingResult
+import com.example.recyclerviewtask.tasks.SuccessfulResult
+import com.example.recyclerviewtask.tasks.UserResult
 
 class UserDetailsViewModel(
     private val userService: UserService
@@ -25,4 +28,9 @@ class UserDetailsViewModel(
         val user = this.userDetails.value ?: return
         userService.deleteUser(user.user)
     }
+
+    data class State(
+        val userDetailsResult: UserResult<UserDetails>,
+        private val deletingInProgress: Boolean
+    )
 }
