@@ -37,7 +37,7 @@ class UserDetailsViewModel(
 
         userService.getUserById(id)
             .onError {
-                _actionShowTest.value = Event("Cant load user details".toInt())
+                _actionShowTest.value = Event(R.string.cant_load_user_details)
                 _actionGoBack.value = Event(Unit)
             }
             .onSuccess {
@@ -52,12 +52,12 @@ class UserDetailsViewModel(
         _state.value = currentState.copy(deletingInProgress = true)
         userService.deleteUser(userDetailsResult.data.user)
             .onSuccess {
-                _actionShowTest.value = Event("User has been deleted".toInt())
+                _actionShowTest.value = Event(R.string.user_has_been_deleted)
                 _actionGoBack.value = Event(Unit)
             }
             .onError {
                 _state.value = currentState.copy(deletingInProgress = false)
-                _actionShowTest.value = Event("Cant delete user".toInt())
+                _actionShowTest.value = Event(R.string.cant_delete_user)
             }
             .autoCancel()
     }
