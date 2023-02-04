@@ -7,7 +7,7 @@ import com.example.recyclerviewtask.module.UserService
 
 class UserDetailsViewModel(
     private val userService: UserService
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _userDetails = MutableLiveData<UserDetails>()
     val userDetails: LiveData<UserDetails> = _userDetails

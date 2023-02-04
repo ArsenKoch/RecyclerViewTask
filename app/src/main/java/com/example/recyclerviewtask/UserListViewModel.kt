@@ -15,7 +15,7 @@ data class UserListItem(
 
 class UserListViewModel(
     private val userService: UserService
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _users = MutableLiveData<UserResult<List<UserListItem>>>()
     val users: LiveData<UserResult<List<UserListItem>>> = _users
